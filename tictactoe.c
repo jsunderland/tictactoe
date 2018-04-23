@@ -7,7 +7,7 @@
 
 //struct gamespace gameboard[9];
 struct	gamespace gameboard[] = {{8,cat},{1,cat},{6,cat},{3,cat},{5,cat},{7,cat},{4,cat},{9,cat},{2,cat}};
-char gamemoves[9] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
+char *gamemoves[9];
 
 int main(){ 
 	/*
@@ -15,7 +15,7 @@ int main(){
 	 * tic tac toe all on my own.
 	 */
 	printf("Welcom to tic tac toe!\n");
-
+	current_player = player1;
 	/* Creating the game board
 	 * 1|2|3
 	 * 4|5|6
@@ -32,7 +32,15 @@ int main(){
 //	gameboard[8] = {9,cat};
 //	gameboard[9] = {2,cat};
 	char playermoves[8];
-	playermoves = fgets("Please make a move");
+	int *test;
+	//fgets(playermoves, "Please make a move");
+
+	char move;
+	printf("Please enter your move\n");
+	playermoves[0] = getchar();
+	printf("your move was %c\n",playermoves[0]);
+	int corrected_move = (atoi(&playermoves[0])) - 1;
+	gameboard[corrected_move].player=current_player;
 
 	enum Player game_winner = findWinner();
 
@@ -61,11 +69,11 @@ enum Player findWinner()
 
 void printBoard()
 {
-	printf("%c|%c|%c\n",gamemoves[0],gamemoves[1],gamemoves[2]);
+	printf("%c|%c|%c\n",*gamemoves[0],*gamemoves[1],*gamemoves[2]);
 	printf("-----\n");
-	printf("%c|%c|%c\n",gamemoves[3],gamemoves[4],gamemoves[5]);
+	printf("%c|%c|%c\n",*gamemoves[3],*gamemoves[4],*gamemoves[5]);
 	printf("-----\n");
-	printf("%c|%c|%c\n",gamemoves[6],gamemoves[7],gamemoves[8]);
+	printf("%c|%c|%c\n",*gamemoves[6],*gamemoves[7],*gamemoves[8]);
 }
 
 char *getPlayerStr(int player)
@@ -83,5 +91,9 @@ char *getPlayerStr(int player)
 
 void fillMoves(void)
 {
-	
+	int i; 
+	for(i=0; i < (sizeof(gamemoves)/sizeof(gamemoves[0]));++i)
+	{
+		gamemoves[i]=getPlayerStr(gameboard[i].player);
+	}
 }

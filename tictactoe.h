@@ -15,3 +15,5 @@ struct gamespace
 enum Player findWinner(void);
 void printBoard(void);
 void fillMoves(void);
+char *getPlayerStr(int player);
+enum Player current_player;
